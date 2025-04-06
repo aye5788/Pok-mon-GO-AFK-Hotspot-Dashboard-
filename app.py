@@ -37,7 +37,12 @@ st.sidebar.header("🎛️ Filter Hotspots")
 
 visible_min = st.sidebar.slider("Minimum Visible Stops", 0, int(df["Visible Stops"].max()), 5)
 score_min = st.sidebar.slider("Minimum Cluster Score", 0.0, float(df["Stationary Cluster Score"].max()), 2.0)
-grade_filter = st.sidebar.multiselect("Cluster Grade", sorted(df["Cluster Grade"].unique()), default=["A", "B"])
+
+available_grades = sorted(df["Cluster Grade"].dropna().unique().tolist())
+default_grades = [g for g in ["A", "B"] if g in available_grades]
+
+grade_filter = st.sidebar.multiselect("Cluster Grade", available_grades, default=default_grades)
+
 
 # --- FILTERING ---
 filtered_df = df[
