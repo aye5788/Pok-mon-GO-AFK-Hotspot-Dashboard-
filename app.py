@@ -13,6 +13,11 @@ def load_data():
     return pd.read_csv("pogo_hotspot_analysis_complete.csv")
 
 df = load_data()
+# Clean column names to remove accidental whitespace
+df.columns = df.columns.str.strip()
+
+# Optional: Show column names for debugging
+st.write("📄 Columns loaded:", df.columns.tolist())
 
 # --- HEADER ---
 st.title("📍 Pokémon GO AFK Hotspot Explorer")
